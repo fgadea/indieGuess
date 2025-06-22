@@ -1,0 +1,73 @@
+{
+  "sourceLanguage" : "en",
+  "strings" : {
+    "–" : {
+
+    },
+    "%lld" : {
+
+    },
+    "%lld / %lld" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "%1$lld / %2$lld"
+          }
+        }
+      }
+    },
+    "+" : {
+
+    },
+    "0" : {
+
+    },
+    "100" : {
+
+    },
+    "Attempts:" : {
+
+    },
+    "Cancel" : {
+
+    },
+    "Choose your difficulty" : {
+
+    },
+    "Custom Game" : {
+
+    },
+    "Difficulty:" : {
+
+    },
+    "Go to menu" : {
+
+    },
+    "Guess the number" : {
+
+    },
+    "Hello, world!" : {
+
+    },
+    "Play again!" : {
+
+    },
+    "Speed" : {
+
+    },
+    "Start" : {
+
+    },
+    "Welcome" : {
+
+    },
+    "You loose!" : {
+
+    },
+    "You win!" : {
+
+    }
+  },
+  "version" : "1.0"
+}

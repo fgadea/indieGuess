@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xliff xmlns="urn:oasis:names:tc:xliff:document:1.2" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" version="1.2" xsi:schemaLocation="urn:oasis:names:tc:xliff:document:1.2 http://docs.oasis-open.org/xliff/v1.2/os/xliff-core-1.2-strict.xsd">
+  <file original="Localizable.xcstrings" source-language="en" target-language="ca" datatype="plaintext">
+    <header>
+      <tool tool-id="com.apple.dt.xcode" tool-name="Xcode" tool-version="16.4" build-num="16F6"/>
+    </header>
+    <body>
+      <trans-unit id="%lld" xml:space="preserve">
+        <source>%lld</source>
+        <note/>
+      </trans-unit>
+      <trans-unit id="%lld / %lld" xml:space="preserve">
+        <source>%1$lld / %2$lld</source>
+        <note/>
+      </trans-unit>
+      <trans-unit id="+" xml:space="preserve">
+        <source>+</source>
+        <note/>
+      </trans-unit>
+      <trans-unit id="0" xml:space="preserve">
+        <source>0</source>
+        <note/>
+      </trans-unit>
+      <trans-unit id="100" xml:space="preserve">
+        <source>100</source>
+        <note/>
+      </trans-unit>
+      <trans-unit id="Attempts:" xml:space="preserve">
+        <source>Attempts:</source>
+        <note/>
+      </trans-unit>
+      <trans-unit id="Cancel" xml:space="preserve">
+        <source>Cancel</source>
+        <note/>
+      </trans-unit>
+      <trans-unit id="Choose your difficulty" xml:space="preserve">
+        <source>Choose your difficulty</source>
+        <note/>
+      </trans-unit>
+      <trans-unit id="Custom Game" xml:space="preserve">
+        <source>Custom Game</source>
+        <note/>
+      </trans-unit>
+      <trans-unit id="Difficulty:" xml:space="preserve">
+        <source>Difficulty:</source>
+        <note/>
+      </trans-unit>
+      <trans-unit id="Go to menu" xml:space="preserve">
+        <source>Go to menu</source>
+        <note/>
+      </trans-unit>
+      <trans-unit id="Guess the number" xml:space="preserve">
+        <source>Guess the number</source>
+        <note/>
+      </trans-unit>
+      <trans-unit id="Hello, world!" xml:space="preserve">
+        <source>Hello, world!</source>
+        <note/>
+      </trans-unit>
+      <trans-unit id="Play again!" xml:space="preserve">
+        <source>Play again!</source>
+        <note/>
+      </trans-unit>
+      <trans-unit id="Speed" xml:space="preserve">
+        <source>Speed</source>
+        <note/>
+      </trans-unit>
+      <trans-unit id="Start" xml:space="preserve">
+        <source>Start</source>
+        <note/>
+      </trans-unit>
+      <trans-unit id="Welcome" xml:space="preserve">
+        <source>Welcome</source>
+        <note/>
+      </trans-unit>
+      <trans-unit id="You loose!" xml:space="preserve">
+        <source>You loose!</source>
+        <note/>
+      </trans-unit>
+      <trans-unit id="You win!" xml:space="preserve">
+        <source>You win!</source>
+        <note/>
+      </trans-unit>
+      <trans-unit id="–" xml:space="preserve">
+        <source>–</source>
+        <note/>
+      </trans-unit>
+    </body>
+  </file>
+  <file original="NumberGuess-InfoPlist.xcstrings" source-language="en" target-language="ca" datatype="plaintext">
+    <header>
+      <tool tool-id="com.apple.dt.xcode" tool-name="Xcode" tool-version="16.4" build-num="16F6"/>
+    </header>
+    <body>
+      <trans-unit id="CFBundleName" xml:space="preserve">
+        <source>NumberGuess</source>
+        <note>Bundle name</note>
+      </trans-unit>
+    </body>
+  </file>
+</xliff>
