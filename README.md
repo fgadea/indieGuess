@@ -4,8 +4,10 @@
 🟢 **Correct digit and position**  
 🟡 **Correct digit but wrong position**
 
+
+[![Download on the App Store](Resources/appStore.svg)](https://apps.apple.com/fi/app/indie-guess/id6747625169)
+
 > Built with ❤️ using Swift and SwiftUI. Fully open-source.
-[![Download on the App Store](https://linkmaker.itunes.apple.com/assets/shared/badges/en-us/appstore-lrg.svg)](https://apps.apple.com/fi/app/indie-guess/id6747625169)
 
 ---
 
