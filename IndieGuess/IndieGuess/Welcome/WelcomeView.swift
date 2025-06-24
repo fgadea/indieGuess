@@ -22,9 +22,9 @@ struct WelcomeView: View {
         case .easy:
             .init(digits: 3, attemps: 10, level: selectedLevel ?? .custom)
         case .medium:
-                .init(digits: 6, attemps: 10, level: selectedLevel ?? .custom)
+                .init(digits: 6, attemps: 20, level: selectedLevel ?? .custom)
         case .hard:
-                .init(digits: 10, attemps: 10, level: selectedLevel ?? .custom)
+                .init(digits: 10, attemps: 40, level: selectedLevel ?? .custom)
         case .custom:
                 .init(digits: Int(customLength), attemps: Int(customAttempts), level: selectedLevel ?? .custom)
         }
@@ -60,11 +60,11 @@ struct WelcomeView: View {
                             } label: {
                                 Text(level.rawValue)
                                     .font(.headline)
-                                    .frame(maxWidth: 300)
+                                    .frame(width: 200, height: 40)
                                     .padding()
                                     .background(level.backgroundColor(for: colorScheme))
                                     .foregroundColor(level.textColor(for: colorScheme))
-                                    .clipShape(RoundedRectangle(cornerRadius: 12))
+                                    .clipShape(Capsule(style: .continuous))
                             }
                             
                         }

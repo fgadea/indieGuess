@@ -57,20 +57,39 @@ class GamePlayModel {
     }
     
     private func validateInput() -> UserIntent {
-        var copyNumberToGuess = Array(numberToGuess)
-        var exactMatches: Int = 0
-        var wrongMatches: Int = 0
-        for (index, number) in userInput.enumerated() {
-            if copyNumberToGuess.contains(number), let firstIndex = copyNumberToGuess.firstIndex(of: number) {
-                if copyNumberToGuess[index] == number {
-                    exactMatches += 1
-                } else if Int(String(copyNumberToGuess[firstIndex])) != nil {
-                    wrongMatches += 1
-                }
-                copyNumberToGuess[firstIndex] = "x"
+        let guess = Array(numberToGuess)
+        let input = Array(userInput)
+
+        var exactMatches = 0
+        var wrongMatches = 0
+
+        var unmatchedGuess: [Character] = []
+        var unmatchedInput: [Character] = []
+
+        // Step 1: Collect exact matches
+        for i in 0..<min(guess.count, input.count) {
+            if guess[i] == input[i] {
+                exactMatches += 1
+            } else {
+                unmatchedGuess.append(guess[i])
+                unmatchedInput.append(input[i])
             }
         }
-        
+
+        // Step 2: Count frequencies of unmatched guess digits
+        var guessFreq: [Character: Int] = [:]
+        for char in unmatchedGuess {
+            guessFreq[char, default: 0] += 1
+        }
+
+        // Step 3: Count wrong matches
+        for char in unmatchedInput {
+            if let count = guessFreq[char], count > 0 {
+                wrongMatches += 1
+                guessFreq[char]! -= 1
+            }
+        }
+
         return UserIntent(content: userInput, matches: exactMatches, wrongMatches: wrongMatches)
     }
 }
