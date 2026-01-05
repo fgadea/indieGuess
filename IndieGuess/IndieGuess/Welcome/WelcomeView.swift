@@ -66,6 +66,9 @@ struct WelcomeView: View {
                                     .foregroundColor(level.textColor(for: colorScheme))
                                     .clipShape(Capsule(style: .continuous))
                             }
+                            .glassEffect(
+                                .clear.interactive()
+                            )
                             
                         }
                     }

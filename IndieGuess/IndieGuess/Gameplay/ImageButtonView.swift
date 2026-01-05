@@ -25,6 +25,7 @@ struct ImageButtonView: View {
         }
         .buttonStyle(.borderless)
         .foregroundStyle(foregroundColor)
+        .glassEffect(.clear.interactive())
         .padding(6)
     }
 }
