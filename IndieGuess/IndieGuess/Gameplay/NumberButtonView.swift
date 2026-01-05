@@ -25,10 +25,7 @@ struct NumberButtonView: View {
         }
         .buttonStyle(.borderless)
         .foregroundStyle(.primary)
-        .background(
-            RoundedRectangle(cornerRadius: 16)
-                .fill(.quinary)
-                )
+        .glassEffect(.regular.tint(.secondary.opacity(0.15)).interactive())
         .padding(6)
     }
 }
