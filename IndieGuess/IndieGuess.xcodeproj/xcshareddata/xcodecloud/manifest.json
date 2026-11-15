@@ -1,0 +1,9 @@
+{
+  "id" : "6f5b0167-5f5f-4cc9-9d09-9c23bdb007ab",
+  "targets" : [
+    {
+      "id" : "CA9A5787-7055-4058-A871-89400BE894AB",
+      "name" : "IndieGuess"
+    }
+  ]
+}
