@@ -7,10 +7,6 @@
 
 import SwiftUI
 
-enum DeviceOrientations {
-    case compactPortrail, compactLandscape, regular
-}
-
 struct GameplayView: View {
     @State private var model: GamePlayModel
     @Environment(\.dismiss) var dismiss
@@ -167,12 +163,9 @@ struct GameplayView: View {
                     }
                 }
             } else if getOrientation == .compactLandscape {
-                VStack {
-                    titleView
-                    HStack {
-                        progressView
-                        userInputView
-                    }
+                HStack {
+                    progressView
+                    userInputView
                 }
             } else {
                 VStack(spacing: 0) {

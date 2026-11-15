@@ -8,6 +8,7 @@
 import SwiftUI
 
 struct CustomGameView: View {
+    @Environment(\.colorScheme) private var colorScheme
     @Binding var isPresented: Bool
     @Binding var selectedLevel: DifficultyLevel?
     @Binding var customLength: Int
@@ -38,11 +39,15 @@ struct CustomGameView: View {
                     } label: {
                         Text("Cancel")
                             .font(.headline)
-                            .frame(maxWidth: .infinity)
-                            .padding(.vertical, 8)
+                            .frame(minWidth: 100, minHeight: 20)
+                            .padding()
+                            .background(CustomAlertButtonStyle.cancel.backgroundColor(for: colorScheme))
+                            .foregroundColor(CustomAlertButtonStyle.cancel.textColor(for: colorScheme))
+                            .clipShape(Capsule(style: .continuous))
                     }
-                    .buttonStyle(.bordered)
-                    .buttonBorderShape(.roundedRectangle(radius: 12))
+                    .glassEffect(
+                        .clear.interactive()
+                    )
                     #if os(iOS)
                     .sensoryFeedback(.impact(weight: .heavy), trigger: showBackground)
                     #endif
@@ -53,11 +58,15 @@ struct CustomGameView: View {
                     } label: {
                         Text("Start")
                             .font(.headline)
-                            .frame(maxWidth: .infinity)
-                            .padding(.vertical, 8)
+                            .frame(minWidth: 100, minHeight: 20)
+                            .padding()
+                            .background(CustomAlertButtonStyle.start.backgroundColor(for: colorScheme))
+                            .foregroundColor(CustomAlertButtonStyle.start.textColor(for: colorScheme))
+                            .clipShape(Capsule(style: .continuous))
                     }
-                    .buttonStyle(.borderedProminent)
-                    .buttonBorderShape(.roundedRectangle(radius: 12))
+                    .glassEffect(
+                        .clear.interactive()
+                    )
                     #if os(iOS)
                     .sensoryFeedback(.impact(weight: .heavy), trigger: showBackground)
                     #endif
@@ -71,6 +80,7 @@ struct CustomGameView: View {
             .padding()
             .frame(maxWidth: 400)
         }
+        .toolbarVerticalBehavior(.disabled)
         .onAppear {
             withAnimation(.easeInOut(duration: 0.8)) {
                 showBackground = true
