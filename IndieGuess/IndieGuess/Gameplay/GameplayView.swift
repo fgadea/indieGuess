@@ -7,10 +7,15 @@
 
 import SwiftUI
 
+enum DeviceOrientations {
+    case compactPortrail, compactLandscape, regular
+}
+
 struct GameplayView: View {
     @State private var model: GamePlayModel
     @Environment(\.dismiss) var dismiss
     @Environment(\.colorScheme) var colorScheme
+    @Environment(\.verticalSizeClass) var verticalSizeClass
     @Environment(\.horizontalSizeClass) var horizontalSizeClass
     @State private var showWinView: Bool = false
     @State private var showLooseView: Bool = false
@@ -24,76 +29,7 @@ struct GameplayView: View {
     }
     
     var body: some View {
-        VStack(spacing: 0) {
-            HStack {
-                Text("Guess the number")
-                    .font(.system(size: 36, weight: .black))
-                    .lineLimit(1)
-            }
-            
-            HStack(alignment: .top) {
-                HStack {
-                    Text("Difficulty:")
-                        .font(.subheadline)
-                        .foregroundColor(.gray)
-                    DifficultyPillView(level: model.level)
-                }
-                .frame(height: 35)
-                Spacer()
-                HStack {
-                    Text("Attempts:")
-                        .font(.subheadline)
-                        .foregroundColor(.gray)
-                    Text("\(model.userIntents.count) / \(model.attemps)")
-                        .font(.subheadline)
-                        .font(.subheadline.bold())
-                        .foregroundColor(.primary)
-                }
-                .frame(height: 35)
-            }
-            .padding(.horizontal)
-            .padding(.vertical)
-            
-            ScrollViewReader { proxy in
-                List(model.userIntents) { intent in
-                    HStack {
-                        Text(intent.content)
-                            .font(.system(.title3, design: .monospaced))
-
-                        Spacer()
-                        Text("\(intent.matches)")
-                        Image(systemName: "checkmark.circle.fill")
-                            .foregroundColor(.green)
-                            .padding(.trailing, 6)
-
-                        Text("\(intent.wrongMatches)")
-                        Image(systemName: "xmark.circle.fill")
-                            .foregroundColor(.orange)
-                    }
-                    .padding()
-                    .background(colorScheme == .dark ? Color.white.opacity(0.1) :  Color.black.opacity(0.05))
-                    .clipShape(RoundedRectangle(cornerRadius: 12))
-                    .listRowSeparator(.hidden)
-                    .listRowInsets(.init(top: 4, leading: 0, bottom: 4, trailing: 0))
-                    .id(intent.id)
-                    .accessibilityLabel(Text("tried \(intent.content) with \(intent.matches) matches and \(intent.wrongMatches) wrong matches."))
-                }
-                .listStyle(.plain)
-                .padding(.horizontal)
-                .padding(.bottom)
-                .onChange(of: model.userIntents) { _, _ in
-                    withAnimation {
-                        proxy.scrollTo(model.userIntents.last?.id)
-                    }
-                }
-            }
-            
-            inputRowView
-                .padding()
-            numPadView
-                .frame(maxWidth: 400, minHeight: 280, maxHeight: 280)
-                .padding()
-        }
+        content
         .onChange(of: model.userIntents) {
             guard let last = model.userIntents.last else { return }
             if last.matches == model.digits {
@@ -136,7 +72,7 @@ struct GameplayView: View {
                             .frame(width: 15, height: 15)
                             .overlay {
                                 if index < model.userInput.count {
-                                    Text("\(Array(model.userInput)[index])")
+                                    Text("\(String(Array(model.userInput)[index]))")
                                         .font(.system(.title3, design: .monospaced))
                                 } else {
                                     Circle()
@@ -153,7 +89,7 @@ struct GameplayView: View {
                         .frame(width: 15, height: 15)
                         .overlay {
                             if index < model.userInput.count {
-                                Text("\(Array(model.userInput)[index])")
+                                Text("\(String(Array(model.userInput)[index]))")
                                     .font(.system(.title3, design: .monospaced))
                             } else {
                                 Circle()
@@ -209,6 +145,129 @@ struct GameplayView: View {
                 }
             }
         }
+    }
+    
+    private var content: some View {
+        VStack(spacing: 0) {
+            if getOrientation == .regular {
+                ArrangementView {
+                    VStack(spacing: 0) {
+                        titleView
+                        progressView
+                    }
+                } secondary: {
+                    HStack(spacing: 0) {
+                        Spacer()
+                        VStack(spacing: 0) {
+                            Spacer()
+                            userInputView
+                            Spacer()
+                        }
+                        Spacer()
+                    }
+                }
+            } else if getOrientation == .compactLandscape {
+                VStack {
+                    titleView
+                    HStack {
+                        progressView
+                        userInputView
+                    }
+                }
+            } else {
+                VStack(spacing: 0) {
+                    titleView
+                    progressView
+                    userInputView
+                }
+            }
+        }
+    }
+    
+    private var userInputView: some View {
+        VStack(spacing: 0) {
+            inputRowView
+                .padding()
+            numPadView
+                .frame(maxWidth: 400, minHeight: 280, maxHeight: 280)
+                .padding()
+        }
+    }
+    
+    private var titleView: some View {
+        HStack {
+            Text("Guess the number")
+                .font(.system(size: 36, weight: .black))
+                .lineLimit(1)
+        }
+    }
+    
+    private var progressView: some View {
+        VStack(spacing: 0) {
+            HStack(alignment: .top) {
+                HStack {
+                    Text("Difficulty:")
+                        .font(.subheadline)
+                        .foregroundColor(.gray)
+                    DifficultyPillView(level: model.level)
+                }
+                .frame(height: 35)
+                Spacer()
+                HStack {
+                    Text("Attempts:")
+                        .font(.subheadline)
+                        .foregroundColor(.gray)
+                    Text("\(model.userIntents.count) / \(model.attemps)")
+                        .font(.subheadline)
+                        .font(.subheadline.bold())
+                        .foregroundColor(.primary)
+                }
+                .frame(height: 35)
+            }
+            .padding(.horizontal)
+            .padding(.vertical)
+            
+            ScrollViewReader { proxy in
+                List(model.userIntents) { intent in
+                    HStack {
+                        Text(intent.content)
+                            .font(.system(.title3, design: .monospaced))
+                        
+                        Spacer()
+                        Text("\(intent.matches)")
+                        Image(systemName: "checkmark.circle.fill")
+                            .foregroundColor(.green)
+                            .padding(.trailing, 6)
+                        
+                        Text("\(intent.wrongMatches)")
+                        Image(systemName: "xmark.circle.fill")
+                            .foregroundColor(.orange)
+                    }
+                    .padding()
+                    .background(colorScheme == .dark ? Color.white.opacity(0.1) :  Color.black.opacity(0.05))
+                    .clipShape(RoundedRectangle(cornerRadius: 12))
+                    .listRowSeparator(.hidden)
+                    .listRowInsets(.init(top: 4, leading: 0, bottom: 4, trailing: 0))
+                    .id(intent.id)
+                    .accessibilityLabel(Text("tried \(intent.content) with \(intent.matches) matches and \(intent.wrongMatches) wrong matches."))
+                }
+                .listStyle(.plain)
+                .padding(.horizontal)
+                .padding(.bottom)
+                .onChange(of: model.userIntents) { _, _ in
+                    withAnimation {
+                        proxy.scrollTo(model.userIntents.last?.id)
+                    }
+                }
+            }
+        }
+    }
+    
+    private var getOrientation: DeviceOrientations {
+        if horizontalSizeClass == .compact {
+            return verticalSizeClass == .regular ? .compactPortrail : .compactLandscape
+        }
+        return .regular
     }
 }
 

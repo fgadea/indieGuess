@@ -9,6 +9,8 @@ import SwiftUI
 
 struct WelcomeView: View {
     @Environment(\.colorScheme) private var colorScheme
+    @Environment(\.verticalSizeClass) var verticalSizeClass
+    @Environment(\.horizontalSizeClass) var horizontalSizeClass
     @State private var selectedLevel: DifficultyLevel? = nil
     @State private var showGameplay: Bool = false
     @State private var showCustomAlert: Bool = false
@@ -29,6 +31,13 @@ struct WelcomeView: View {
                 .init(digits: Int(customLength), attemps: Int(customAttempts), level: selectedLevel ?? .custom)
         }
     }
+    
+    private var getOrientation: DeviceOrientations {
+        if horizontalSizeClass == .compact {
+            return verticalSizeClass == .regular ? .compactPortrail : .compactLandscape
+        }
+        return .regular
+    }
 
     var body: some View {
         NavigationStack {
@@ -48,34 +57,19 @@ struct WelcomeView: View {
                         .font(.title3)
                         .foregroundColor(.secondary)
                     
-                    VStack(spacing: 16) {
-                        ForEach(DifficultyLevel.allCases, id: \.self) { level in
-                            Button {
-                                if level == .custom {
-                                    showCustomAlert = true
-                                } else {
-                                    selectedLevel = level
-                                    showGameplay = true
-                                }
-                            } label: {
-                                Text(level.rawValue)
-                                    .font(.headline)
-                                    .frame(width: 200, height: 40)
-                                    .padding()
-                                    .background(level.backgroundColor(for: colorScheme))
-                                    .foregroundColor(level.textColor(for: colorScheme))
-                                    .clipShape(Capsule(style: .continuous))
-                            }
-                            .glassEffect(
-                                .clear.interactive()
-                            )
-                            
+                    
+                    if getOrientation == .compactLandscape {
+                        HStack(spacing: 0) {
+                            gameButtonsView(Array(DifficultyLevel.allCases.prefix(DifficultyLevel.allCases.count / 2)))
+                            gameButtonsView(Array(DifficultyLevel.allCases.suffix(DifficultyLevel.allCases.count / 2)))
                         }
+                    } else {
+                        gameButtonsView(DifficultyLevel.allCases)
                     }
-                    .padding(.horizontal)
                 }
             }
             .padding()
+            .toolbarVerticalBehavior(.disabled)
             .navigationDestination(isPresented: $showGameplay) {
                 let model = createGamePlayModel()
                 GameplayView(model: model)
@@ -128,6 +122,34 @@ struct WelcomeView: View {
                 }
             }
         }
+    }
+    
+    private func gameButtonsView(_ buttons: [DifficultyLevel]) -> some View {
+        VStack(spacing: 16) {
+            ForEach(buttons, id: \.self) { level in
+                Button {
+                    if level == .custom {
+                        showCustomAlert = true
+                    } else {
+                        selectedLevel = level
+                        showGameplay = true
+                    }
+                } label: {
+                    Text(level.rawValue)
+                        .font(.headline)
+                        .frame(width: 200, height: 40)
+                        .padding()
+                        .background(level.backgroundColor(for: colorScheme))
+                        .foregroundColor(level.textColor(for: colorScheme))
+                        .clipShape(Capsule(style: .continuous))
+                }
+                .glassEffect(
+                    .clear.interactive()
+                )
+                
+            }
+        }
+        .padding(.horizontal)
     }
 }
 
