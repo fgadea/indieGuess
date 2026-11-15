@@ -8,6 +8,7 @@
 import SwiftUI
 
 struct CustomStepperView: View {
+    @Environment(\.colorScheme) private var colorScheme
     let title: LocalizedStringKey
     @Binding var value: Int
     let range: ClosedRange<Int>
@@ -26,10 +27,14 @@ struct CustomStepperView: View {
                 }) {
                     Image(systemName: "minus")
                         .font(.title2)
-                        .frame(width: 35, height: 35)
-                        .background(Color.gray.opacity(0.1))
-                        .clipShape(RoundedRectangle(cornerRadius: 10))
+                        .frame(width: 40, height: 40)
+                        .background(StepperButtonStyle.sub.backgroundColor(for: colorScheme))
+                        .foregroundColor(StepperButtonStyle.sub.textColor(for: colorScheme))
+                        .clipShape(Circle())
                 }
+                .glassEffect(
+                    .clear.interactive()
+                )
 
                 Text("\(value)")
                     .font(.title2.bold())
@@ -45,10 +50,14 @@ struct CustomStepperView: View {
                 }) {
                     Image(systemName: "plus")
                         .font(.title2)
-                        .frame(width: 35, height: 35)
-                        .background(Color.gray.opacity(0.1))
-                        .clipShape(RoundedRectangle(cornerRadius: 10))
+                        .frame(width: 40, height: 40)
+                        .background(StepperButtonStyle.add.backgroundColor(for: colorScheme))
+                        .foregroundColor(StepperButtonStyle.add.textColor(for: colorScheme))
+                        .clipShape(Circle())
                 }
+                .glassEffect(
+                    .clear.interactive()
+                )
             }
         }
     }
